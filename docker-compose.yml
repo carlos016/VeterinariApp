@@ -1,0 +1,17 @@
+
+services:
+  # Servicio de Base de Datos MySQL
+  db:
+    image: mysql:8.0
+    container_name: veterinariapp-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: veterinariapp_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306" # PC (3307) -> Contenedor (3306)
+    volumes:
+      - veti_data:/var/lib/mysql # Persistencia de datos
+
+volumes:
+  veti_data:
