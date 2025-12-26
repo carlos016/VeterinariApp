@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-// 1. Importamos el plugin de forma moderna
 import tailwindAnimate from "tailwindcss-animate";
 
 const config: Config = {
@@ -52,7 +51,6 @@ const config: Config = {
       },
     },
   },
-  // 2. Usamos la variable importada aquí
   plugins: [tailwindAnimate],
 };
 

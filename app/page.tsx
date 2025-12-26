@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-// Definimos la forma de un Propietario para que TypeScript no se queje
 interface Owner {
   id: number;
   dni: string;
@@ -16,10 +15,9 @@ interface Owner {
 }
 
 export default async function Home() {
-  // Leemos los dueños de la DB
   const owners = await prisma.owner.findMany({
     orderBy: { id: 'desc' }
-  }) as Owner[]; // Forzamos el tipo aquí para solucionar los errores de "any"
+  }) as Owner[];
 
   return (
     <main className="container mx-auto py-10 px-4 space-y-8">
@@ -29,7 +27,7 @@ export default async function Home() {
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Formulario de Registro */}
+        {}
         <section className="lg:col-span-4">
           <Card className="shadow-lg border-t-4 border-t-primary">
             <CardHeader>
@@ -50,7 +48,7 @@ export default async function Home() {
           </Card>
         </section>
 
-        {/* Tabla de Resultados */}
+        {}
         <section className="lg:col-span-8">
           <Card className="shadow-sm">
             <CardHeader>
