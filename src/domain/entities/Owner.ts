@@ -4,13 +4,13 @@ export class Owner {
   constructor(
     public readonly id: number | null,
     public readonly dni: DNI,
-    public readonly firstName: string,
-    public readonly firstLastName: string,
-    public readonly secondLastName?: string,
+    public readonly name: string,
+    public readonly middleName: string,
+    public readonly lastName?: string,
     public readonly phone?: string
   ) {}
 
   public getFullName(): string {
-    return `${this.firstName} ${this.firstLastName} ${this.secondLastName || ""}`.trim();
+    return `${this.name} ${this.middleName} ${this.lastName || ""}`.trim();
   }
 }

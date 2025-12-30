@@ -1,1 +1,6 @@
-{ "language": "en,es" }
+{
+    "language": "en,es",
+    "words": [
+        "vercel"
+    ]
+}
