@@ -11,9 +11,9 @@ datasource db {
 model Owner {
   id             Int         @id @default(autoincrement())
   dni            String      @unique
-  name           String      // Nombre
-  middleName     String      // Primer Apellido
-  lastName       String?     // Segundo Apellido (Opcional, algunos extranjeros no tienen)
+  name           String      
+  middleName     String      
+  lastName       String?     
   phone          String?
   email          String?
   farms          Ownership[]

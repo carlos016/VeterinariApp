@@ -6,9 +6,9 @@ export class CreateOwnerUseCase {
 
   async execute(input: {
     dni: string;
-    name: string; // Cambiado
-    middleName: string; // Cambiado
-    lastName?: string; // Cambiado
+    name: string;
+    middleName: string;
+    lastName?: string;
     phone?: string;
   }): Promise<void> {
     const allOwners = await this.ownerRepository.findAll();
