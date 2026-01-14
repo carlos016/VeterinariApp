@@ -19,12 +19,13 @@ describe("CreateOwnerUseCase", () => {
       lastName: "González",
     };
 
-    await useCase.execute(ownerData);
+    const result = await useCase.execute(ownerData);
 
+    expect(result.isSuccess).toBe(true);
     expect(mockRepo.save).toHaveBeenCalledTimes(1);
   });
 
-  it("debería lanzar un error si el DNI ya está registrado", async () => {
+  it("debería devolver un fallo si el DNI ya está registrado", async () => {
     const mockRepo: OwnerRepository = {
       save: vi.fn(),
       findAll: vi.fn(async () => [
@@ -39,8 +40,11 @@ describe("CreateOwnerUseCase", () => {
       middleName: "García",
     };
 
-    await expect(useCase.execute(duplicateData)).rejects.toThrow(
-      "El DNI ya está registrado"
-    );
+    const result = await useCase.execute(duplicateData);
+
+    expect(result.isFailure).toBe(true);
+    expect(result.getError().message).toBe("El DNI ya está registrado");
+
+    expect(mockRepo.save).not.toHaveBeenCalled();
   });
 });

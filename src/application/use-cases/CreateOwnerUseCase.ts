@@ -1,5 +1,6 @@
 import { Owner } from "@/domain/entities/Owner";
 import { OwnerRepository } from "@/domain/repositories/OwnerRepository";
+import { Result } from "@/domain/shared/Result";
 import { DNI } from "@/domain/value-objects/DNI";
 export class CreateOwnerUseCase {
   constructor(private readonly ownerRepository: OwnerRepository) {}
@@ -10,21 +11,28 @@ export class CreateOwnerUseCase {
     middleName: string;
     lastName?: string;
     phone?: string;
-  }): Promise<void> {
+  }): Promise<Result<void>> {
     const allOwners = await this.ownerRepository.findAll();
-    if (allOwners.some((o) => o.dni.getValue() === input.dni)) {
-      throw new Error("El DNI ya está registrado");
+    const isDuplicate = allOwners.some((o) => o.dni.getValue() === input.dni);
+
+    if (isDuplicate) {
+      return Result.fail("El DNI ya está registrado");
     }
 
-    const owner = new Owner(
-      null,
-      DNI.create(input.dni),
-      input.name,
-      input.middleName,
-      input.lastName,
-      input.phone
-    );
+    try {
+      const owner = new Owner(
+        null,
+        DNI.create(input.dni),
+        input.name,
+        input.middleName,
+        input.lastName,
+        input.phone
+      );
 
-    await this.ownerRepository.save(owner);
+      await this.ownerRepository.save(owner);
+      return Result.ok();
+    } catch (error) {
+      return Result.fail("Error inesperado al crear el propietario");
+    }
   }
 }
