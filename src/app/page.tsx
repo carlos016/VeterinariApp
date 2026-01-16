@@ -55,7 +55,12 @@ export default async function Home() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form action={createOwnerAction} className="flex flex-col gap-5">
+              <form
+                action={async (formData) => {
+                  await createOwnerAction(formData);
+                }}
+                className="flex flex-col gap-5"
+              >
                 <div className="space-y-2">
                   <Label htmlFor="dni">DNI / NIE</Label>
                   <Input id="dni" name="dni" placeholder="12345678Z" required />
