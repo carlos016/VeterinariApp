@@ -32,4 +32,4 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Ejecutar Linter
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+        run: npx eslint .
