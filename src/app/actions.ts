@@ -4,21 +4,10 @@ import { CreateOwnerUseCase } from "@/application/use-cases/CreateOwnerUseCase";
 import { PrismaOwnerRepository } from "@/infrastructure/persistence/PrismaOwnerRepository";
 import { revalidatePath } from "next/cache";
 
-export async function createOwnerAction(arg1: any, arg2?: any) {
-  const formData =
-    arg2 instanceof FormData ? arg2 : arg1 instanceof FormData ? arg1 : null;
-
+export async function createOwnerAction(formData: FormData): Promise<void> {
   if (!formData) {
-    console.error(
-      "❌ No se recibió FormData. Arg1:",
-      typeof arg1,
-      "Arg2:",
-      typeof arg2
-    );
-    return {
-      error: "Error interno: No se recibieron los datos del formulario.",
-      success: false,
-    };
+    console.error("❌ No se recibió FormData");
+    return;
   }
 
   const dni = formData.get("dni") as string;
@@ -37,16 +26,13 @@ export async function createOwnerAction(arg1: any, arg2?: any) {
     });
 
     if (result.isFailure) {
-      const errorMsg = result.getError().message;
-      console.log("⚠️ FALLO DE VALIDACIÓN:", errorMsg);
-      return { error: errorMsg, success: false };
+      console.log("⚠️ FALLO DE VALIDACIÓN:", result.getError().message);
+      return;
     }
 
     console.log("✅ PROPIETARIO CREADO");
     revalidatePath("/");
-    return { error: null, success: true };
   } catch (err) {
     console.error("🔥 ERROR EN BASE DE DATOS:", err);
-    return { error: "Error al conectar con la base de datos.", success: false };
   }
 }
