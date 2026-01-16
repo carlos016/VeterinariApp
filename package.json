@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "check-lint": "next lint",
+    "check-lint": "next lint .",
     "postinstall": "prisma generate"
   },
   "dependencies": {
