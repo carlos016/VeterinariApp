@@ -32,4 +32,4 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Ejecutar Linter
-        run: npx next lint --dir .
+        run: npm run lint
