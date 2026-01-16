@@ -32,5 +32,4 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Ejecutar Linter
-        run: npx next lint .
-        continue-on-error: true
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx
