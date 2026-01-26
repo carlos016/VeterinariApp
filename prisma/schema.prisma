@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
   engineType = "library"
 }
 
@@ -9,43 +9,35 @@ datasource db {
 }
 
 model Owner {
-  id             Int         @id @default(autoincrement())
-  dni            String      @unique
-  name           String      
-  middleName     String      
-  lastName       String?     
-  phone          String?
-  email          String?
-  farms          Ownership[]
+  id         Int     @id @default(autoincrement())
+  dni        String  @unique
+  name       String
+  middleName String
+  lastName   String?
+  phone      String?
+  email      String?
+  farms      Farm[]
 }
 
 model Farm {
-  id        Int         @id @default(autoincrement())
-  regaCode  String      @unique
-  name      String?
-  address   String
-  owners    Ownership[]
-  animals   Animal[]
-}
-
-model Ownership {
-  ownerId Int
-  farmId  Int
-  owner   Owner @relation(fields: [ownerId], references: [id])
-  farm    Farm  @relation(fields: [farmId], references: [id])
-
-  @@id([ownerId, farmId])
+  id       Int      @id @default(autoincrement())
+  regaCode String   @unique
+  name     String?
+  address  String
+  ownerId  Int
+  owner    Owner    @relation(fields: [ownerId], references: [id])
+  animals  Animal[]
 }
 
 model Animal {
-  id        Int      @id @default(autoincrement())
-  crotal    String   @unique
+  id        Int              @id @default(autoincrement())
+  crotal    String           @unique
   name      String?
   species   String
   sex       String
   birthDate DateTime
   farmId    Int
-  farm      Farm     @relation(fields: [farmId], references: [id])
+  farm      Farm             @relation(fields: [farmId], references: [id])
   records   ClinicalRecord[]
 }
 
