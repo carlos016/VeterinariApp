@@ -36,7 +36,10 @@ export default async function Home() {
     orderBy: { id: "desc" },
   })) as Owner[];
 
-  const [state, formAction] = useActionState(createOwnerAction, null);
+  const [state, formAction] = useActionState(createOwnerAction, {
+    error: null,
+    success: false,
+  });
 
   return (
     <main className="container mx-auto py-10 px-4 space-y-8 max-w-6xl">

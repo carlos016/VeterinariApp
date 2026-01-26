@@ -4,7 +4,7 @@ import { CreateOwnerUseCase } from "@/application/use-cases/CreateOwnerUseCase";
 import { PrismaOwnerRepository } from "@/infrastructure/persistence/PrismaOwnerRepository";
 import { revalidatePath } from "next/cache";
 
-export async function createOwnerAction(formData: FormData) {
+export async function createOwnerAction(prevState: any, formData: FormData) {
   const dni = formData.get("dni") as string;
   const repository = new PrismaOwnerRepository();
   const useCase = new CreateOwnerUseCase(repository);
@@ -25,6 +25,6 @@ export async function createOwnerAction(formData: FormData) {
     revalidatePath("/");
     return { error: null, success: true };
   } catch (err) {
-    return { error: "Error al conectar con la base de datos.", success: false };
+    return { error: "Error en la base de datos.", success: false };
   }
 }

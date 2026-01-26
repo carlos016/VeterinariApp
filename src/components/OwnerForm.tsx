@@ -23,7 +23,7 @@ export function OwnerForm() {
     setError(null);
 
     startTransition(async () => {
-      const result = await createOwnerAction(formData);
+      const result = await createOwnerAction(null, formData);
 
       if (result?.error) {
         setError(result.error);
