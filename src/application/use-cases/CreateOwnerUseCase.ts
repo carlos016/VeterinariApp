@@ -4,7 +4,6 @@ import { Result } from "@/domain/shared/Result";
 import { DNI } from "@/domain/value-objects/DNI";
 export class CreateOwnerUseCase {
   constructor(private readonly ownerRepository: OwnerRepository) {}
-
   async execute(input: {
     dni: string;
     name: string;

@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,6 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { prisma } from "@/lib/prisma";
+import { useActionState } from "react";
 import { createOwnerAction } from "./actions";
 
 interface Owner {
@@ -32,6 +35,8 @@ export default async function Home() {
   const owners = (await prisma.owner.findMany({
     orderBy: { id: "desc" },
   })) as Owner[];
+
+  const [state, formAction] = useActionState(createOwnerAction, null);
 
   return (
     <main className="container mx-auto py-10 px-4 space-y-8 max-w-6xl">
@@ -55,7 +60,7 @@ export default async function Home() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form action={createOwnerAction} className="flex flex-col gap-5">
+              <form action={formAction} className="flex flex-col gap-5">
                 <div className="space-y-2">
                   <Label htmlFor="dni">DNI / NIE</Label>
                   <Input id="dni" name="dni" placeholder="12345678Z" required />
@@ -96,6 +101,8 @@ export default async function Home() {
                     placeholder="600000000"
                   />
                 </div>
+
+                {state?.error && <p className="text-red-500">{state.error}</p>}
 
                 <Button
                   type="submit"
