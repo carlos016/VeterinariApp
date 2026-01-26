@@ -1,0 +1,18 @@
+{
+  "version": "0.2",
+  "language": "en,es",
+  "words": [
+    "autoincrement",
+    "crotal",
+    "rega",
+    "datasource",
+    "esnext",
+    "mysql",
+    "Tipado",
+    "veterinariapp",
+    "shadcn",
+    "tailwindcss",
+    "prisma"
+  ],
+  "ignorePaths": ["node_modules", ".next", ".git", "dist"]
+}
