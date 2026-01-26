@@ -1,15 +1,5 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { OwnerForm } from "@/components/OwnerForm";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -19,8 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { prisma } from "@/lib/prisma";
-import { useActionState } from "react";
-import { createOwnerAction } from "./actions";
 
 interface Owner {
   id: number;
@@ -36,11 +24,6 @@ export default async function Home() {
     orderBy: { id: "desc" },
   })) as Owner[];
 
-  const [state, formAction] = useActionState(createOwnerAction, {
-    error: null,
-    success: false,
-  });
-
   return (
     <main className="container mx-auto py-10 px-4 space-y-8 max-w-6xl">
       <header className="text-left border-b pb-6">
@@ -55,67 +38,8 @@ export default async function Home() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {}
         <section className="lg:col-span-5">
-          <Card className="shadow-lg border-t-4 border-t-primary">
-            <CardHeader>
-              <CardTitle>Nuevo Propietario</CardTitle>
-              <CardDescription>
-                Registre los datos personales del dueño.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form action={formAction} className="flex flex-col gap-5">
-                <div className="space-y-2">
-                  <Label htmlFor="dni">DNI / NIE</Label>
-                  <Input id="dni" name="dni" placeholder="12345678Z" required />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="name">Nombre</Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    placeholder="Ej. Juan"
-                    required
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="middleName">Primer Apellido</Label>
-                    <Input
-                      id="middleName"
-                      name="middleName"
-                      placeholder="Pérez"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName">Segundo Apellido</Label>
-                    <Input id="lastName" name="lastName" placeholder="García" />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Teléfono de contacto</Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="600000000"
-                  />
-                </div>
-
-                {state?.error && <p className="text-red-500">{state.error}</p>}
-
-                <Button
-                  type="submit"
-                  className="w-full mt-2 font-bold py-6 text-lg"
-                >
-                  Guardar Propietario
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+          {}
+          <OwnerForm />
         </section>
 
         {}
@@ -155,9 +79,7 @@ export default async function Home() {
                           {owner.dni}
                         </TableCell>
                         <TableCell className="capitalize font-medium">
-                          {`${owner.name} ${owner.middleName} ${
-                            owner.lastName || ""
-                          }`}
+                          {`${owner.name} ${owner.middleName} ${owner.lastName || ""}`}
                         </TableCell>
                         <TableCell className="text-right pr-6 text-muted-foreground">
                           {owner.phone || "—"}

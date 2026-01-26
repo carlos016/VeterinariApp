@@ -1,5 +1,4 @@
 "use client";
-//
 
 import { createOwnerAction } from "@/app/actions";
 import { Alert, AlertDescription } from "@/components/ui/alert";
